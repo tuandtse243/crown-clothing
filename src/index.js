@@ -7,10 +7,17 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/carts.context';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: 'https://crwn-clothing.com/',
+  cache: new InMemoryCache()
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <UserProvider>
         <CategoriesProvider>
@@ -20,6 +27,7 @@ root.render(
         </CategoriesProvider>
       </UserProvider>
     </BrowserRouter>
+  </ApolloProvider>
   // </React.StrictMode>
 );
 
